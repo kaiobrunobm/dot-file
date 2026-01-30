@@ -1,0 +1,85 @@
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex )
+
+-- Do things without affecting the registers
+vim.keymap.set("n", "x", '"_x')
+vim.keymap.set("n", "<leader>c", '"_c')
+vim.keymap.set("n", "<leader>C", '"_C')
+vim.keymap.set("v", "<leader>c", '"_c')
+vim.keymap.set("v", "<leader>C", '"_C')
+vim.keymap.set("n", "<leader>d", '"_d')
+vim.keymap.set("n", "D", '"_D')
+vim.keymap.set("v", "<leader>d", '"_d')
+vim.keymap.set("v", "<leader>D", '"_D')
+vim.keymap.set("x", "<leader>p", "\"_dP")
+
+-- Move selected block Up and Down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Delete word backwards
+vim.keymap.set("n", "dw", 'vb"_d')
+
+-- CTRL + a Select all
+vim.keymap.set("n", "<C-a>", "gg<S-v>G")
+
+
+-- Split window
+vim.keymap.set("n", "ss", ":split<Return>", opts)
+vim.keymap.set("n", "sv", ":vsplit<Return>", opts)
+-- Move window
+vim.keymap.set("n", "sh", "<C-w>h")
+vim.keymap.set("n", "sk", "<C-w>k")
+vim.keymap.set("n", "sj", "<C-w>j")
+vim.keymap.set("n", "sl", "<C-w>l")
+vim.keymap.set("n", "sq", "<C-w>q")
+
+
+vim.keymap.set("n", "<C-d", "C-d>zz")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-u", "C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set("v", "<leader>Y", [["+Y]])
+
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+ local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[P]roject [F]ile' })
+vim.keymap.set('n', '<leader>gf', builtin.git_files, {desc = '[G]it [F]iles'})
+vim.keymap.set('n', '<leader>ps', function () 
+	builtin.grep_string({ search = vim.fn.input ("Grep >") })
+end)
+
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+
+  virtual_text = true,
+  virtual_lines = false,
+
+  jump = { float = true },
+}
+
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+vim.keymap.set("n", "<leader><leader>", function()
+    vim.cmd("so")
+end)
+
